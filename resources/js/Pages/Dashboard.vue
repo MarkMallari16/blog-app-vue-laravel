@@ -8,7 +8,7 @@ defineProps({
     required: true,
   },
 });
-const { props } = usePage();
+
 const form = useForm({
   title: "",
   content: "",
@@ -91,8 +91,12 @@ const submit = () => {
       <div v-for="post in posts" :key="post.id" class="bg-white mb-4 p-5 rounded-lg">
         <p>Author: {{ post.user.name }}</p>
         <h1 class="text-4xl mt-4">{{ post.title }}</h1>
-        <img class="mt-4" :src="`/storage/${post.image}`" :alt="post.title" />
-      
+        <img
+          class="mt-4 rounded-lg w-full"
+          :src="`/storage/${post.image}`"
+          :alt="post.title"
+        />
+
         <p class="text-gray-700 mt-2">{{ post.content }}</p>
         <p class="text-gray-700 mt-2">{{ new Date(post.created_at).getDate() }}</p>
       </div>
