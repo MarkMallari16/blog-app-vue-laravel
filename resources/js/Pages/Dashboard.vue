@@ -1,17 +1,18 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, useForm, usePage  } from "@inertiajs/vue3";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 
 defineProps({
   posts: {
     type: Array,
-    required: true
+    required: true,
   },
 });
 const { props } = usePage();
 const form = useForm({
   title: "",
   content: "",
+  image: null,
 });
 
 const submit = () => {
@@ -34,7 +35,7 @@ const submit = () => {
         </div>
       </div>
     </div>
-  
+
     <div class="mt-5 mx-5 lg:mx-48 mb-5">
       <form @submit.prevent="submit">
         <div class="mb-4">
@@ -64,9 +65,22 @@ const submit = () => {
             {{ form.errors.content }}
           </div>
         </div>
+        <div>
+          <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+          <input
+            ref="imageInput"
+            type="file"
+            id="image"
+            @input="form.image = $refs.imageInput.files[0]"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          <div class="mt-2 text-red-500" v-if="form.errors.image">
+            {{ form.errors.image }}
+          </div>
+        </div>
         <button
           type="submit"
-          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          class="mt-8 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           :disabled="form.processing"
         >
           Create Post
@@ -77,11 +91,13 @@ const submit = () => {
       <div v-for="post in posts" :key="post.id" class="bg-white mb-4 p-5 rounded-lg">
         <p>Author: {{ post.user.name }}</p>
         <h1 class="text-4xl mt-4">{{ post.title }}</h1>
+        <img class="mt-4" :src="`/storage/${post.image}`" :alt="post.title" />
+      
         <p class="text-gray-700 mt-2">{{ post.content }}</p>
         <p class="text-gray-700 mt-2">{{ new Date(post.created_at).getDate() }}</p>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="text-center">
       <p>No posts available.</p>
     </div>
   </AuthenticatedLayout>

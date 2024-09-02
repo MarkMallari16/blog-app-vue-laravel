@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -20,13 +21,19 @@ class PostController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string'
+            'content' => 'required|string',
+            'image' => 'required|file|mimes:png,jpg,jpeg',
         ]);
 
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        Storage::putFileAs('public/images', $image, $imageName);
         Post::create([
             'title' => $validatedData['title'],
             'content' => $validatedData['content'],
             'user_id' => auth()->id(),
+            'image' => "images/{$imageName}"
+
         ]);
 
         session()->flash('success', 'Post created successfully.');
