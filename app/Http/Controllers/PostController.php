@@ -40,4 +40,11 @@ class PostController extends Controller
 
         return redirect()->route('dashboard');
     }
+    public function delete(Post $post){
+        $post->delete();
+
+        session()->flash('success', 'Post deleted successfully.');
+
+        return redirect()->route('dashboard');
+    }
 }

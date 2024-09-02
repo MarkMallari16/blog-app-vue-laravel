@@ -16,8 +16,13 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.post(route("posts.store"));
+  form.post(route("post.store"));
   form.reset();
+};
+const deletePost = (postId) => {
+  if (confirm("Are you sure you want to delete this post?")) {
+    form.delete(route("post.delete", postId))
+  }
 };
 </script>
 
@@ -89,16 +94,16 @@ const submit = () => {
     </div>
     <div class="mx-5 lg:mx-48" v-if="posts && posts.length > 0">
       <div v-for="post in posts" :key="post.id" class="bg-white mb-4 p-5 rounded-lg">
-        <p>Author: {{ post.user.name }}</p>
-        <h1 class="text-4xl mt-4">{{ post.title }}</h1>
+        <div class="flex justify-between items-center">
+          <h3 class="text-xl font-medium">{{ post.user.name }}</h3>
+          <button @click="deletePost(post.id)" class="bg-red-500 text-white p-2 rounded-lg">Delete</button>
+        </div>
+        <h1 class="text-4xl mt-4 font-bold">{{ post.title }}</h1>
         <img
-          class="mt-4 rounded-lg w-full"
+          class="mt-4 rounded-lg w-96"
           :src="`/storage/${post.image}`"
           :alt="post.title"
         />
-
-        <p class="text-gray-700 mt-2">{{ post.content }}</p>
-        <p class="text-gray-700 mt-2">{{ new Date(post.created_at).getDate() }}</p>
       </div>
     </div>
     <div v-else class="text-center">
