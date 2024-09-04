@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class PostController extends Controller
 {
+    public function view()
+    {
+        return Inertia::render('Posts');
+    }
     public function index()
     {
         $posts = Post::with('user')->orderByDesc('created_at')->get();
 
         return Inertia::render('Dashboard', [
-            'posts' => $posts
+            'posts' => $posts,
+            'authUserId' => Auth::id()
         ]);
     }
     public function store(Request $request)
@@ -27,7 +33,9 @@ class PostController extends Controller
 
         $image = $request->file('image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
+
         Storage::putFileAs('public/images', $image, $imageName);
+
         Post::create([
             'title' => $validatedData['title'],
             'content' => $validatedData['content'],
@@ -40,11 +48,16 @@ class PostController extends Controller
 
         return redirect()->route('dashboard');
     }
-    public function delete(Post $post){
-        $post->delete();
+    public function delete(Post $post)
+    {
+        $auth = Auth::id();
 
-        session()->flash('success', 'Post deleted successfully.');
-
+        if ($post->user_id === $auth) {
+            $post->delete();
+            session()->flash('success', 'Post deleted successfully.');
+        } else {
+            session()->flash('error', 'You are not authorized to delete this post.');
+        }
         return redirect()->route('dashboard');
     }
 }

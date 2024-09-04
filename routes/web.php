@@ -28,9 +28,10 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/posts', [PostController::class, 'view'])->name('posts');
     Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
     Route::post('/posts', [PostController::class, 'store'])->name('post.store');
-    Route::delete('/posts/{post}',[PostController::class, 'delete'])->name('post.delete');
+    Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('post.delete');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
