@@ -62,7 +62,7 @@ class BlogController extends Controller
             $blog->delete();
             session()->flash('success', 'Blog deleted successfully.');
         } else {
-            session()->flash('error', 'You are not authorized to delete this Blog.');
+            abort(403, 'You are not authorized to delete this blog.');
         }
         return redirect()->route('dashboard');
     }

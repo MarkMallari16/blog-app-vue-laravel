@@ -29,10 +29,9 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
-    Route::get('/blogs', [BlogController::class, 'blog'])->name('blogs');
+    Route::get('/blogs/add', [BlogController::class, 'blog'])->name('posts');
     Route::post('/blogs', [BlogController::class, 'store'])->name('blog.store');
     Route::get('/blogs/{blog}',[BlogController::class,'viewBlog'])->name('blogs.show');
-   
     Route::delete('/blogs/{blog}', [BlogController::class, 'delete'])->name('blog.delete');
 });
 Route::middleware('auth')->group(function () {

@@ -18,11 +18,11 @@ const form = useForm({
   image: null,
 });
 
-const deleteBlog = (blogId) => {
-  if (confirm("Are you sure you want to delete this blog?")) {
-    form.delete(route("blog.delete", blogId));
-  }
-};
+// const deleteBlog = (blogId) => {
+//   if (confirm("Are you sure you want to delete this blog?")) {
+//     form.delete(route("blog.delete", blogId));
+//   }
+// };
 </script>
 <template>
   <div>
@@ -33,7 +33,7 @@ const deleteBlog = (blogId) => {
         :alt="blog.title"
       />
     </div>
-    <span class=" text-slate-400">Artificial Intelligence</span>
+    <span class=" text-slate-400">Education</span>
     <h1 class="mt-1 text-2xl font-bold">{{ blog.title }}</h1>
 
     <p class="text-slate-700">

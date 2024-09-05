@@ -11,7 +11,6 @@ const form = useForm({
 const submit = () => {
   form.post(route("blog.store"));
 };
-
 </script>
 
 <template>
