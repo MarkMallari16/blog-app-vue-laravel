@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -37,7 +38,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::back();
     }
 
     /**
@@ -59,5 +60,25 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    public function updateAvatar(Request $request): RedirectResponse
+    {
+
+        $request->validate([
+            'avatar' => ['required', 'image', 'max:2048'], // Max size 2MB
+        ]);
+
+        $avatarPath = $request->file('avatar')->store('avatars', 'public');
+
+        if ($request->user()->avatar && $request->user()->avatar !== 'avatar.png') {
+            Storage::disk('public')->delete($request->user()->avatar);
+        }
+
+        // Update the user's avatar path in the database
+        $request->user()->update([
+            'avatar' => basename($avatarPath), 
+        ]);
+
+        return Redirect::back();
     }
 }

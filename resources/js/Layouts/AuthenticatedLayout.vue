@@ -1,13 +1,20 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+const {props} = usePage();
+const avatar = props.auth.user.avatar;
+
+const avatarUrl = computed(() => {
+    return avatar ? `/storage/avatars/${avatar}` : '/storage/avatars/avatar.png';
+})
+
 </script>
 
 <template>
@@ -46,7 +53,7 @@ const showingNavigationDropdown = ref(false);
                                     <template #trigger>
                                         
                                         <span class="inline-flex rounded-md">
-                                            <img :src="`/storage/${$page.props.auth.user.avatar}`" alt="avatar" class="w-10">
+                                            <img :src="avatarUrl" alt="avatar" class="w-10 rounded-lg">
                                             <button
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
