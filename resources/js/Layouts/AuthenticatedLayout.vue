@@ -40,7 +40,7 @@ const avatarUrl = computed(() => {
                                     Dashboard
                                 </NavLink>
                                 <NavLink :href="route('posts')" :active="route().current('posts')">
-                                    Add post
+                                    Add Blog
                                 </NavLink>
                             </div>
                         </div>
@@ -129,8 +129,8 @@ const avatarUrl = computed(() => {
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                        <ResponsiveNavLink :href="route('posts')" :active="route().current('posts')">
+                            Add Blog
                         </ResponsiveNavLink>
                     </div>
 

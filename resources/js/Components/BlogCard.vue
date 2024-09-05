@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import NavLink from "./NavLink.vue";
 
 defineProps({
   post: {
@@ -25,19 +26,18 @@ const deletePost = (postId) => {
 </script>
 <template>
   <div>
-    <div>
-      <span class="text-slate-400">Artificial Intelligence</span>
+    <div class="mb-4">
       <img
-        class="mt-3 rounded-lg w-full object-cover"
+        class="mt-3 rounded-lg w-full object-cover h-60"
         :src="`/storage/${post.image}`"
         :alt="post.title"
       />
     </div>
+    <span class=" text-slate-400">Artificial Intelligence</span>
+    <h1 class="mt-1 text-2xl font-bold">{{ post.title }}</h1>
 
-    <h1 class="text-2xl mt-4 font-bold">{{ post.title }}</h1>
-
-    <p>
-      {{ post.content }}
+    <p class="text-slate-700">
+      {{ `${post.content.slice(0, 30)}...` }}
     </p>
 
     <div class="mt-5 justify-between flex items-center">
@@ -46,7 +46,7 @@ const deletePost = (postId) => {
         <p>{{ post.user.name }}</p>
       </div>
       <div>
-        <button class="bg-primary text-white rounded-lg p-2 flex  items-center gap-2">
+        <NavLink :href="route('posts.show', post.id)" class="flex gap-2 text-orange-500">
           Read Full Article
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ const deletePost = (postId) => {
               clip-rule="evenodd"
             />
           </svg>
-        </button>
+        </NavLink>
       </div>
     </div>
   </div>

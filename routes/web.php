@@ -29,6 +29,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts', [PostController::class, 'view'])->name('posts');
+    Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
     Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
     Route::post('/posts', [PostController::class, 'store'])->name('post.store');
     Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('post.delete');

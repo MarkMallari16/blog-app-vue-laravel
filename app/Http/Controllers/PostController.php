@@ -12,7 +12,13 @@ class PostController extends Controller
 {
     public function view()
     {
-        return Inertia::render('Posts');
+        return Inertia::render('PostAdd');
+    }
+    public function show(Post $post)
+    {
+        return Inertia::render('PostShow', [
+            'post' => $post
+        ]);
     }
     public function index()
     {
