@@ -3,7 +3,7 @@ import { useForm } from "@inertiajs/vue3";
 import NavLink from "./NavLink.vue";
 
 defineProps({
-  post: {
+  blog: {
     type: Object,
     required: true,
   },
@@ -18,9 +18,9 @@ const form = useForm({
   image: null,
 });
 
-const deletePost = (postId) => {
-  if (confirm("Are you sure you want to delete this post?")) {
-    form.delete(route("post.delete", postId));
+const deleteBlog = (blogId) => {
+  if (confirm("Are you sure you want to delete this blog?")) {
+    form.delete(route("blog.delete", blogId));
   }
 };
 </script>
@@ -29,24 +29,24 @@ const deletePost = (postId) => {
     <div class="mb-4">
       <img
         class="mt-3 rounded-lg w-full object-cover h-60"
-        :src="`/storage/${post.image}`"
-        :alt="post.title"
+        :src="`/storage/${blog.image}`"
+        :alt="blog.title"
       />
     </div>
     <span class=" text-slate-400">Artificial Intelligence</span>
-    <h1 class="mt-1 text-2xl font-bold">{{ post.title }}</h1>
+    <h1 class="mt-1 text-2xl font-bold">{{ blog.title }}</h1>
 
     <p class="text-slate-700">
-      {{ `${post.content.slice(0, 30)}...` }}
+      {{ `${blog.content.slice(0, 30)}...` }}
     </p>
 
     <div class="mt-5 justify-between flex items-center">
       <div class="flex items-center gap-3">
-        <img :src="`/storage/avatars/${post.user.avatar}`" alt="avatar" class="w-8" />
-        <p>{{ post.user.name }}</p>
+        <img :src="`/storage/avatars/${blog.user.avatar}`" alt="avatar" class="w-8" />
+        <p>{{ blog.user.name }}</p>
       </div>
       <div>
-        <NavLink :href="route('posts.show', post.id)" class="flex gap-2 text-orange-500">
+        <NavLink :href="route('blogs.show', blog.id)" class="flex gap-2 text-orange-500">
           Read Full Article
           <svg
             xmlns="http://www.w3.org/2000/svg"

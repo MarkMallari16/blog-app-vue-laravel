@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,11 +28,12 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/posts', [PostController::class, 'view'])->name('posts');
-    Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
-    Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
-    Route::post('/posts', [PostController::class, 'store'])->name('post.store');
-    Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('post.delete');
+    Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
+    Route::get('/blogs', [BlogController::class, 'blog'])->name('blogs');
+    Route::post('/blogs', [BlogController::class, 'store'])->name('blog.store');
+    Route::get('/blogs/{blog}',[BlogController::class,'viewBlog'])->name('blogs.show');
+   
+    Route::delete('/blogs/{blog}', [BlogController::class, 'delete'])->name('blog.delete');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

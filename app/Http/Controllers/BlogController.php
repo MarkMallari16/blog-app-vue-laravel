@@ -2,31 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
-class PostController extends Controller
+class BlogController extends Controller
 {
-    public function view()
-    {
-        return Inertia::render('PostAdd');
-    }
-    public function show(Post $post)
-    {
-        return Inertia::render('PostShow', [
-            'post' => $post
-        ]);
-    }
     public function index()
     {
-        $posts = Post::with('user')->orderByDesc('created_at')->get();
+        $blogs = Blog::with('user')->orderByDesc('created_at')->get();
 
         return Inertia::render('Dashboard', [
-            'posts' => $posts,
+            'blogs' => $blogs,
             'authUserId' => Auth::id()
+        ]);
+    }
+
+    public function blog()
+    {
+        return Inertia::render('BlogAdd');
+    }
+    public function viewBlog(Blog $blog)
+    {
+        return Inertia::render('BlogShow', [
+            'blog' => $blog
         ]);
     }
     public function store(Request $request)
@@ -42,27 +43,26 @@ class PostController extends Controller
 
         Storage::putFileAs('public/images', $image, $imageName);
 
-        Post::create([
+        Blog::create([
             'title' => $validatedData['title'],
             'content' => $validatedData['content'],
             'user_id' => auth()->id(),
             'image' => "images/{$imageName}"
-
         ]);
 
-        session()->flash('success', 'Post created successfully.');
+        session()->flash('success', 'Blog created successfully.');
 
         return redirect()->route('dashboard');
     }
-    public function delete(Post $post)
+    public function delete(Blog $blog)
     {
         $auth = Auth::id();
 
-        if ($post->user_id === $auth) {
-            $post->delete();
-            session()->flash('success', 'Post deleted successfully.');
+        if ($blog->user_id === $auth) {
+            $blog->delete();
+            session()->flash('success', 'Blog deleted successfully.');
         } else {
-            session()->flash('error', 'You are not authorized to delete this post.');
+            session()->flash('error', 'You are not authorized to delete this Blog.');
         }
         return redirect()->route('dashboard');
     }
