@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import NavLink from "./NavLink.vue";
+import SecondaryButton from "./SecondaryButton.vue";
 
 defineProps({
   blog: {
@@ -18,11 +19,11 @@ const form = useForm({
   image: null,
 });
 
-// const deleteBlog = (blogId) => {
-//   if (confirm("Are you sure you want to delete this blog?")) {
-//     form.delete(route("blog.delete", blogId));
-//   }
-// };
+const deleteBlog = (blogId) => {
+  if (confirm("Are you sure you want to delete this blog?")) {
+    form.delete(route("blog.delete", blogId));
+  }
+};
 </script>
 <template>
   <div>
@@ -61,6 +62,7 @@ const form = useForm({
             />
           </svg>
         </NavLink>
+        <button class="bg-red-500 text-white" @click="deleteBlog(blog.id)">Delete</button>
       </div>
     </div>
   </div>

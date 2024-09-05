@@ -29,8 +29,8 @@ defineProps({
         <BlogCard :blog="blog" :authUserId="authUserId" />
       </div>
     </div>
-    <div v-else class="mt-10 text-center">
-      <p>No blogs available.</p>
+    <div v-else class="mt-10 text-center bg-white mx-48 p-5 rounded-lg">
+      <p>No blogs available today.</p>
     </div>
   </AuthenticatedLayout>
 </template>
