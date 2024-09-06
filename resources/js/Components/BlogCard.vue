@@ -34,7 +34,7 @@ const deleteBlog = (blogId) => {
         :alt="blog.title"
       />
     </div>
-    <span class=" text-slate-400">Education</span>
+    <p class=" text-slate-400">Education</p>
     <h1 class="mt-1 text-2xl font-bold">{{ blog.title }}</h1>
 
     <p class="text-slate-700">
@@ -62,7 +62,7 @@ const deleteBlog = (blogId) => {
             />
           </svg>
         </NavLink>
-        <button class="bg-red-500 text-white" @click="deleteBlog(blog.id)">Delete</button>
+        
       </div>
     </div>
   </div>
