@@ -1,16 +1,20 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 const form = useForm({
   title: "",
   content: "",
   image: null,
+  category: "",
 });
 
 const submit = () => {
   form.post(route("blog.store"));
 };
+
+const category = ref("");
 </script>
 
 <template>
@@ -50,9 +54,22 @@ const submit = () => {
             {{ form.errors.content }}
           </div>
         </div>
-        <div>
+        <div class="mt-4">
+          <label for="category" class="block text-sm font-medium text-gray-700"
+            >Select category</label
+          >
+          <select id="category" v-model="form.category" class="mt-1 rounded-lg border-gray-400 focus:border-orange-500 focus:outline-orange-500 " >
+            <option disabled value="">Select category</option>
+            <option value="Technology">Technology</option>
+            <option value="Health ">Health</option>
+            <option value="Education">Education</option>
+            <option value="Lifestyle">Lifestyle</option>
+          </select>
+        </div>
+        <div class="mt-4">
           <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
           <input
+            id="image"
             ref="imageInput"
             type="file"
             @input="form.image = $refs.imageInput.files[0]"
@@ -62,9 +79,10 @@ const submit = () => {
             {{ form.errors.image }}
           </div>
         </div>
+
         <button
           type="submit"
-          class="mt-8 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+          class="mt-6 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
           :disabled="form.processing"
         >
           Create Blog

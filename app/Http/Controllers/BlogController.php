@@ -35,7 +35,9 @@ class BlogController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'category' => 'required',
             'image' => 'required|file|mimes:png,jpg,jpeg',
+          
         ]);
 
         $image = $request->file('image');
@@ -46,6 +48,7 @@ class BlogController extends Controller
         Blog::create([
             'title' => $validatedData['title'],
             'content' => $validatedData['content'],
+            'category' => $validatedData['category'],
             'user_id' => auth()->id(),
             'image' => "images/{$imageName}"
         ]);

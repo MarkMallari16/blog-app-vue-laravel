@@ -29,16 +29,16 @@ const deleteBlog = (blogId) => {
   <div>
     <div class="mb-4">
       <img
-        class="mt-3 rounded-lg w-full object-cover h-60"
+        class=" rounded-lg w-full object-cover h-60"
         :src="`/storage/${blog.image}`"
         :alt="blog.title"
       />
     </div>
-    <p class=" text-slate-400">Education</p>
+    <p class=" text-slate-400">{{blog.category}}</p>
     <h1 class="mt-1 text-2xl font-bold">{{ blog.title }}</h1>
 
     <p class="text-slate-700">
-      {{ `${blog.content.slice(0, 30)}...` }}
+      {{ `${blog.content.slice(0, 50)}...` }}
     </p>
 
     <div class="mt-5 justify-between flex items-center">

@@ -9,7 +9,7 @@ defineProps({
 <template>
   <AuthenticatedLayout>
     <div class="mt-10 mx-5 lg:mx-48 bg-white px-8 py-2 rounded-xl">
-      <p class="mt-4 text-slate-400">Education</p>
+      <p class="mt-4 text-slate-400">{{blog.category}}</p>
       <div>
         <div class="flex justify-between items-center">
           <h1 class="mt-4 mb-6 text-4xl font-bold">{{ blog.title }}</h1>
