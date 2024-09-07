@@ -14,7 +14,7 @@ const submit = () => {
   form.post(route("blog.store"));
 };
 
-const category = ref("");
+
 </script>
 
 <template>
