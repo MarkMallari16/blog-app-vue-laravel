@@ -3,6 +3,7 @@ import { useForm } from "@inertiajs/vue3";
 import NavLink from "./NavLink.vue";
 import SecondaryButton from "./SecondaryButton.vue";
 import { useDate } from "@/Composables/date";
+import { computed } from "vue";
 
 const props = defineProps({
   blog: {
@@ -25,6 +26,16 @@ const deleteBlog = (blogId) => {
     form.delete(route("blog.delete", blogId));
   }
 };
+
+const avatarUrl = computed(() => {
+  if (props.blog.user.provider_id){
+    return props.blog.user.avatar
+  }else if (props.blog.user.avatar){
+    return `/storage/avatars/${props.blog.user.avatar}`
+  }else{
+     return "/storage/avatars/avatar.png"
+  }
+})
 const { formattedDate } = useDate(props.blog.created_at);
 </script>
 <template>
@@ -45,7 +56,7 @@ const { formattedDate } = useDate(props.blog.created_at);
 
     <div class="mt-6 justify-between flex items-center">
       <div class="flex items-center gap-3">
-        <img :src="`${blog.user.avatar}`" alt="avatar" class="w-10 rounded-lg" />
+        <img :src="avatarUrl" alt="avatar" class="w-10 rounded-lg" />
         <div>
           <p class="font-medium">{{ blog.user.name }}</p>
           <p class="text-sm text-slate-400">{{ formattedDate }}</p>
