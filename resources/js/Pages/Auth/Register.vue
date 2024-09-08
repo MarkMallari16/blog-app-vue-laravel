@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import NavLink from '@/Components/NavLink.vue';
+import GitHubButton from '@/Components/GitHubButton.vue';
 
 const form = useForm({
     name: '',
@@ -87,9 +88,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
             <div class="mt-6">
-                <a href="/auth/github/redirect" class="bg-black w-full text-white p-4 rounded-lg">
-                    Sign in with GitHub
-                </a>
+               <GitHubButton/>
             </div>
             <div class="flex items-center justify-end mt-4">
                 <Link

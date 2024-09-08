@@ -28,7 +28,7 @@ const deleteBlog = (blogId) => {
 const { formattedDate } = useDate(props.blog.created_at);
 </script>
 <template>
-  <div>
+  <div class="w-full">
     <div class="mb-4">
       <img
         class="rounded-lg w-full object-cover h-60"
@@ -40,10 +40,10 @@ const { formattedDate } = useDate(props.blog.created_at);
     <h1 class="mt-1 text-2xl font-bold">{{ blog.title }}</h1>
 
     <p class="text-slate-700">
-      {{ `${blog.content.slice(0, 50)}...` }}
+      {{ `${blog.content.slice(0, 40)}...` }}
     </p>
 
-    <div class="mt-4 justify-between flex items-center">
+    <div class="mt-6 justify-between flex items-center">
       <div class="flex items-center gap-3">
         <img :src="`${blog.user.avatar}`" alt="avatar" class="w-10 rounded-lg" />
         <div>
