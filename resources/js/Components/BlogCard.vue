@@ -2,8 +2,9 @@
 import { useForm } from "@inertiajs/vue3";
 import NavLink from "./NavLink.vue";
 import SecondaryButton from "./SecondaryButton.vue";
+import { useDate } from "@/Composables/date";
 
-defineProps({
+const props = defineProps({
   blog: {
     type: Object,
     required: true,
@@ -24,27 +25,31 @@ const deleteBlog = (blogId) => {
     form.delete(route("blog.delete", blogId));
   }
 };
+const { formattedDate } = useDate(props.blog.created_at);
 </script>
 <template>
   <div>
     <div class="mb-4">
       <img
-        class=" rounded-lg w-full object-cover h-60"
+        class="rounded-lg w-full object-cover h-60"
         :src="`/storage/${blog.image}`"
         :alt="blog.title"
       />
     </div>
-    <p class=" text-slate-400">{{blog.category}}</p>
+    <p class="text-slate-400">{{ blog.category }}</p>
     <h1 class="mt-1 text-2xl font-bold">{{ blog.title }}</h1>
 
     <p class="text-slate-700">
       {{ `${blog.content.slice(0, 50)}...` }}
     </p>
 
-    <div class="mt-5 justify-between flex items-center">
+    <div class="mt-4 justify-between flex items-center">
       <div class="flex items-center gap-3">
-        <img :src="`/storage/avatars/${blog.user.avatar}`" alt="avatar" class="w-8" />
-        <p>{{ blog.user.name }}</p>
+        <img :src="`/storage/avatars/${blog.user.avatar}`" alt="avatar" class="w-9" />
+        <div>
+          <p class="font-medium">{{ blog.user.name }}</p>
+          <p class="text-sm text-slate-400">{{ formattedDate }}</p>
+        </div>
       </div>
       <div>
         <NavLink :href="route('blogs.show', blog.id)" class="flex gap-2 text-orange-500">
@@ -62,7 +67,6 @@ const deleteBlog = (blogId) => {
             />
           </svg>
         </NavLink>
-        
       </div>
     </div>
   </div>

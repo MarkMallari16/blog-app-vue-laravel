@@ -1,20 +1,18 @@
 <script setup>
+import InputError from "@/Components/InputError.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
 
 const form = useForm({
   title: "",
   content: "",
-  image: null,
   category: "",
+  image: null,
 });
 
 const submit = () => {
   form.post(route("blog.store"));
 };
-
-
 </script>
 
 <template>
@@ -35,9 +33,7 @@ const submit = () => {
             id="title"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
           />
-          <div class="mt-2 text-red-500" v-if="form.errors.title">
-            {{ form.errors.title }}
-          </div>
+          <InputError :message="form.errors.title" class="mt-2" />
         </div>
 
         <div class="mb-4">
@@ -50,21 +46,24 @@ const submit = () => {
             rows="4"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
           ></textarea>
-          <div class="mt-2 text-red-500" v-if="form.errors.title">
-            {{ form.errors.content }}
-          </div>
+          <InputError :message="form.errors.content" class="mt-2" />
         </div>
         <div class="mt-4">
           <label for="category" class="block text-sm font-medium text-gray-700"
             >Select category</label
           >
-          <select id="category" v-model="form.category" class="mt-1 rounded-lg border-gray-400 focus:border-orange-500 focus:outline-orange-500 " >
-            <option disabled value="">Select category</option>
+          <select
+            id="category"
+            v-model="form.category"
+            class="mt-1 rounded-lg border-gray-400 focus:border-orange-500 focus:outline-orange-500"
+          >
+            <option value="">Select category</option>
             <option value="Technology">Technology</option>
             <option value="Health ">Health</option>
             <option value="Education">Education</option>
             <option value="Lifestyle">Lifestyle</option>
           </select>
+          <InputError :message="form.errors.category" class="mt-2" />
         </div>
         <div class="mt-4">
           <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
@@ -75,9 +74,7 @@ const submit = () => {
             @input="form.image = $refs.imageInput.files[0]"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
           />
-          <div class="mt-2 text-red-500" v-if="form.errors.image">
-            {{ form.errors.image }}
-          </div>
+          <InputError :message="form.errors.image" class="mt-2" />
         </div>
 
         <button
