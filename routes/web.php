@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ProviderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
     Route::get('/blogs/add', [BlogController::class, 'blog'])->name('posts');
     Route::post('/blogs', [BlogController::class, 'store'])->name('blog.store');
-    Route::get('/blogs/{blog}',[BlogController::class,'viewBlog'])->name('blogs.show');
+    Route::get('/blogs/{blog}', [BlogController::class, 'viewBlog'])->name('blogs.show');
     Route::delete('/blogs/{blog}', [BlogController::class, 'delete'])->name('blog.delete');
 });
 Route::middleware('auth')->group(function () {
@@ -40,5 +42,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
 });
+
+Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
+
+Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
+
 
 require __DIR__ . '/auth.php';

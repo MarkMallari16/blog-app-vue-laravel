@@ -12,7 +12,7 @@ const {props} = usePage();
 const avatar = props.auth.user.avatar;
 
 const avatarUrl = computed(() => {
-    return avatar ? `/storage/avatars/${avatar}` : '/storage/avatars/avatar.png';
+    return avatar ? `${avatar}` : '/storage/avatars/avatar.png';
 })
 
 </script>

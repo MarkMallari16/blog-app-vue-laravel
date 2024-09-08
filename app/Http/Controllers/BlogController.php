@@ -25,7 +25,9 @@ class BlogController extends Controller
         return Inertia::render('BlogAdd');
     }
     public function viewBlog(Blog $blog)
-    {
+    {   
+        $blog = Blog::with('user')->findOrFail($blog->id);
+        
         return Inertia::render('BlogShow', [
             'blog' => $blog
         ]);

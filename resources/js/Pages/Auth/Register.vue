@@ -5,6 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import NavLink from '@/Components/NavLink.vue';
 
 const form = useForm({
     name: '',
@@ -85,7 +86,11 @@ const submit = () => {
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
-
+            <div class="mt-6">
+                <a href="/auth/github/redirect" class="bg-black w-full text-white p-4 rounded-lg">
+                    Sign in with GitHub
+                </a>
+            </div>
             <div class="flex items-center justify-end mt-4">
                 <Link
                     :href="route('login')"
@@ -93,11 +98,12 @@ const submit = () => {
                 >
                     Already registered?
                 </Link>
-
+               
                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Register
                 </PrimaryButton>
             </div>
+           
         </form>
     </GuestLayout>
 </template>
