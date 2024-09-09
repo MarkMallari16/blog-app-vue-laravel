@@ -25,18 +25,19 @@ class BlogController extends Controller
         return Inertia::render('BlogAdd');
     }
     public function viewBlog(Blog $blog)
-    {   
+    {
         $blog = Blog::with('user')->findOrFail($blog->id);
-        
+
         return Inertia::render('BlogShow', [
             'blog' => $blog
         ]);
     }
-    public function userBlog(){
+    public function userBlog()
+    {
         $user = Auth::user();
         $blogs = $user->blogs()->orderByDesc('created_at')->get();
 
-        return Inertia::render('UserBlog',[
+        return Inertia::render('UserBlog', [
             'blogs' => $blogs,
             'authUserId' => Auth::id()
         ]);
@@ -48,7 +49,7 @@ class BlogController extends Controller
             'content' => 'required|string|min:30',
             'category' => 'required',
             'image' => 'required|file|mimes:png,jpg,jpeg',
-          
+
         ]);
 
         $image = $request->file('image');
@@ -66,6 +67,28 @@ class BlogController extends Controller
 
         session()->flash('success', 'Blog created successfully.');
 
+        return redirect()->route('dashboard');
+    }
+    public function viewUpdateBlog(Blog $blog)
+    {
+        $blog = Blog::with('user')->findOrFail($blog->id);
+        return Inertia::render('BlogUpdate', [
+            'blog' => $blog
+        ]);
+    }
+    public function update(Request $request, Blog $blog)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:55',
+            'content' => 'required|string|min:30',
+            'category' => 'required',
+        ]);
+
+        $blog->update([
+            'title' => $validatedData['title'],
+            'content' => $validatedData['content'],
+            'category' => $validatedData['category']
+        ]);
         return redirect()->route('dashboard');
     }
     public function delete(Blog $blog)

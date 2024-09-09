@@ -35,6 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/blogs/add', [BlogController::class, 'blog'])->name('posts');
     Route::post('/blogs', [BlogController::class, 'store'])->name('blog.store');
     Route::get('/blogs/{blog}', [BlogController::class, 'viewBlog'])->name('blogs.show');
+    Route::get('/blogs/{blog}/edit',[BlogController::class,'viewUpdateBlog'])->name('blog.update.view');
+    Route::put('/blogs/{blog}/edit',[BlogController::class,'update'])->name('blog.update');
     Route::delete('/blogs/{blog}', [BlogController::class, 'delete'])->name('blog.delete');
 });
 Route::middleware('auth')->group(function () {
