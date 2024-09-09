@@ -6,21 +6,14 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link, usePage } from "@inertiajs/vue3";
+import { useAvatar } from "@/Composables/avatar";
 
 const showingNavigationDropdown = ref(false);
 const { props } = usePage();
 const avatar = props?.auth?.user?.avatar;
 const providerId = props?.auth?.user?.provider_id;
 
-const avatarUrl = computed(() => {
-  if (providerId) {
-    return avatar; // If providerId exists, return avatar directly (external URL)
-  } else if (avatar) {
-    return `/storage/avatars/${avatar}`; // If only avatar exists, use local storage path
-  } else {
-    return "/storage/avatars/avatar.png"; // Default avatar
-  }
-});
+const { avatarUrl } = useAvatar(avatar,providerId);
 
 </script>
 

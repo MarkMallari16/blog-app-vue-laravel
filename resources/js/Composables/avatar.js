@@ -1,9 +1,7 @@
 import { computed } from "vue";
 
-export function useAvatar(props) {
-    const avatar = props.auth.user.avatar;
-    const providerId = props.auth.user.provider_id;
-
+export function useAvatar(avatar, providerId) {
+   
     const avatarUrl = computed(() => {
         if (providerId) {
             return avatar; // If providerId exists, return avatar directly (external URL)

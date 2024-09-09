@@ -1,9 +1,9 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import NavLink from "./NavLink.vue";
-import SecondaryButton from "./SecondaryButton.vue";
 import { useDate } from "@/Composables/date";
 import { computed } from "vue";
+import { useAvatar } from "@/Composables/avatar";
 
 const props = defineProps({
   blog: {
@@ -15,6 +15,7 @@ const props = defineProps({
     required: true,
   },
 });
+
 const form = useForm({
   title: "",
   content: "",
@@ -26,16 +27,11 @@ const deleteBlog = (blogId) => {
     form.delete(route("blog.delete", blogId));
   }
 };
+const avatar = props?.blog?.user?.avatar;
+const providerId = props?.blog?.user?.provider_id;
 
-const avatarUrl = computed(() => {
-  if (props.blog.user.provider_id){
-    return props.blog.user.avatar
-  }else if (props.blog.user.avatar){
-    return `/storage/avatars/${props.blog.user.avatar}`
-  }else{
-     return "/storage/avatars/avatar.png"
-  }
-})
+const { avatarUrl } = useAvatar(avatar, providerId);
+
 const { formattedDate } = useDate(props.blog.created_at);
 </script>
 <template>

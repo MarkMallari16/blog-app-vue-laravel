@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { useDate } from "@/Composables/date";
+import { useAvatar } from "@/Composables/avatar";
 
 const props = defineProps({
   blog: Object,
@@ -8,6 +9,12 @@ const props = defineProps({
 });
 
 const { formattedDate } = useDate(props.blog.created_at);
+
+const avatar = props?.blog?.user?.avatar;
+const providerId = props?.blog?.user?.provider_id;
+
+const { avatarUrl } = useAvatar(avatar, providerId);
+
 </script>
 <template>
   <AuthenticatedLayout>
@@ -17,7 +24,7 @@ const { formattedDate } = useDate(props.blog.created_at);
           <p class="text-slate-500">{{ blog.category }}</p>
         </div>
         <div class="mt-6 flex items-center gap-3">
-          <img :src="blog.user.avatar" :alt="blog.title" class="w-12 rounded-lg" />
+          <img :src="avatarUrl" :alt="blog.title" class="w-12 rounded-lg" />
           <p>{{ blog.user.name }}</p>
         </div>
         <div class="mt-6 mb-4 flex justify-between items-center">
@@ -31,12 +38,9 @@ const { formattedDate } = useDate(props.blog.created_at);
           :alt="blog.title"
           class="w-full h-96 object-cover rounded-2xl"
         />
-        <p
-        class="indent-8 mt-8 text-lg text-slate-800 break-all whitespace-pre-line "
-      >
-
-        {{ blog.content }}
-      </p>
+        <p class="indent-8 mt-8 text-lg text-slate-800 break-all whitespace-pre-line">
+          {{ blog.content }}
+        </p>
       </div>
     </div>
   </AuthenticatedLayout>
