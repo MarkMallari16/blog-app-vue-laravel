@@ -1,8 +1,6 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
 import NavLink from "./NavLink.vue";
 import { useDate } from "@/Composables/date";
-import { computed } from "vue";
 import { useAvatar } from "@/Composables/avatar";
 
 const props = defineProps({
@@ -16,17 +14,6 @@ const props = defineProps({
   },
 });
 
-const form = useForm({
-  title: "",
-  content: "",
-  image: null,
-});
-
-const deleteBlog = (blogId) => {
-  if (confirm("Are you sure you want to delete this blog?")) {
-    form.delete(route("blog.delete", blogId));
-  }
-};
 const avatar = props?.blog?.user?.avatar;
 const providerId = props?.blog?.user?.provider_id;
 
