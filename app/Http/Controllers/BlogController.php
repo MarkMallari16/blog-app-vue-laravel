@@ -32,6 +32,15 @@ class BlogController extends Controller
             'blog' => $blog
         ]);
     }
+    public function userBlog(){
+        $user = Auth::user();
+        $blogs = $user->blogs()->orderByDesc('created_at')->get();
+
+        return Inertia::render('UserBlog',[
+            'blogs' => $blogs,
+            'authUserId' => Auth::id()
+        ]);
+    }
     public function store(Request $request)
     {
         $validatedData = $request->validate([

@@ -43,6 +43,9 @@ const { avatarUrl } = useAvatar(avatar,providerId);
                 <NavLink :href="route('posts')" :active="route().current('posts')">
                   Add Blog
                 </NavLink>
+                <NavLink :href="route('user.blog')" :active="route().current('user.blog')">
+                  Your Blog
+                </NavLink>
               </div>
             </div>
 

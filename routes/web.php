@@ -31,6 +31,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
+    Route::get('/user-blog', [BlogController::class, 'userBlog'])->name('user.blog');
     Route::get('/blogs/add', [BlogController::class, 'blog'])->name('posts');
     Route::post('/blogs', [BlogController::class, 'store'])->name('blog.store');
     Route::get('/blogs/{blog}', [BlogController::class, 'viewBlog'])->name('blogs.show');
