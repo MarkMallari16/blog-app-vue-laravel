@@ -82,13 +82,23 @@ class BlogController extends Controller
             'title' => 'required|string|max:55',
             'content' => 'required|string|min:30',
             'category' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $blog->update([
+        $updateData = [
             'title' => $validatedData['title'],
             'content' => $validatedData['content'],
-            'category' => $validatedData['category']
-        ]);
+            'category' => $validatedData['category'],
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->store('images', 'public');
+            $updateData['image'] = $imagePath;
+        }
+
+        $blog->update($updateData);
+
         return redirect()->route('dashboard');
     }
     public function delete(Blog $blog)

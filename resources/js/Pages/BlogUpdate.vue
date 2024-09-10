@@ -16,10 +16,11 @@ const form = useForm({
   title: props.blog.title,
   content: props.blog.content,
   category: props.blog.category,
+  image: props.blog.image
 });
 
 const submit = () => {
-  form.put(route("blog.update", props.blog.id));
+  form.post(route("blog.update", props.blog.id));
 };
 </script>
 <template>
@@ -72,7 +73,17 @@ const submit = () => {
           </select>
           <InputError :message="form.errors.category" class="mt-2" />
         </div>
-
+        <div class="mt-4">
+          <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+          <input
+            id="image"
+            ref="imageInput"
+            type="file"
+            @input="form.image = $refs.imageInput.files[0]"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+          />
+          <InputError :message="form.errors.image" class="mt-2" />
+        </div>
         <button
           type="submit"
           class="mt-6 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
