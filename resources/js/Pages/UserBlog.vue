@@ -28,11 +28,11 @@ const deleteBlog = (blogId) => {
 </script>
 <template>
   <AuthenticatedLayout>
-    <div class="mt-10 lg:mx-40">
+    <div class="mt-10 lg:mx-40 mx-5">
       <h1 class="text-4xl mb-4 font-bold text-orange-500">Your Blogs</h1>
       <div v-for="blog in blogs" :key="blog.id" class="bg-white mb-4 rounded-lg p-2">
         <div class="flex justify-between flex-wrap gap-5 mt-10 p-5">
-          <img :src="`/storage/${blog.image}`" alt="" class="w-60 rounded-xl" />
+          <img :src="`/storage/${blog.image}`" alt="" class="w-full lg:w-60 rounded-xl" />
           <div>
             <p class="text-gray-500 mb-1">{{ blog.category }}</p>
             <h1 class="text-start text-5xl font-bold">{{ blog.title }}</h1>
