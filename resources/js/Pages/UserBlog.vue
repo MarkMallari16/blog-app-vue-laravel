@@ -2,7 +2,7 @@
 import NavLink from "@/Components/NavLink.vue";
 import { useDate } from "@/Composables/date";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { useForm } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 const props = defineProps({
   blogs: {
     type: Array,
@@ -28,6 +28,7 @@ const deleteBlog = (blogId) => {
 </script>
 <template>
   <AuthenticatedLayout>
+    <Head title="Your blog" />
     <div class="mt-10 lg:mx-40 mx-5">
       <h1 class="text-4xl mb-4 font-bold">Your Blogs</h1>
       <div v-for="blog in blogs" :key="blog.id" class="bg-white mb-4 rounded-lg p-2">
