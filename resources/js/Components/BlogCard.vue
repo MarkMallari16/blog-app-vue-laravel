@@ -30,7 +30,7 @@ const { formattedDate } = useDate(props.blog.created_at);
         :alt="blog.title"
       />
     </div>
-    <p class="text-slate-400">{{ blog.category }}</p>
+    <p class=" text-orange-500">{{ blog.category }}</p>
     <h1 class="mt-1 text-2xl font-bold">{{ blog.title }}</h1>
 
     <p class="text-slate-700">
@@ -46,7 +46,7 @@ const { formattedDate } = useDate(props.blog.created_at);
         </div>
       </div>
       <div>
-        <NavLink :href="route('blogs.show', blog.id)" class="flex gap-2 text-orange-500">
+        <NavLink :href="route('blogs.show', blog.id)" class="flex gap-2">
           Read Full Article
           <svg
             xmlns="http://www.w3.org/2000/svg"

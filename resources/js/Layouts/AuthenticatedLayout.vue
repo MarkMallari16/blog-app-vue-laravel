@@ -145,6 +145,9 @@ const { avatarUrl } = useAvatar(avatar,providerId);
             <ResponsiveNavLink :href="route('posts')" :active="route().current('posts')">
               Add Blog
             </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('user.blog')" :active="route().current('user.blog')">
+              Your Blog
+            </ResponsiveNavLink>
           </div>
 
           <!-- Responsive Settings Options -->
