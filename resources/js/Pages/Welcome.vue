@@ -30,10 +30,10 @@ const toggleMenu = () => {
   <div class="relative lg:flex lg:items-center lg:justify-between p-8">
     <div class="flex justify-between">
       <h1 class="text-2xl font-black uppercase">
-        Tambayan<span class="text-orange-500">Thoughts</span>
+        Tambayan<span class="text-orange-500 font-extrabold">Thoughts</span>
       </h1>
       <div @click="toggleMenu" class="relative lg:hidden cursor-pointer">
-        <div v-if="isMenuOpen">
+        <div v-if="isMenuOpen" >
           <button>
             <svg
             xmlns="http://www.w3.org/2000/svg"

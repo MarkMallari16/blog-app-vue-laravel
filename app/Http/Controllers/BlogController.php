@@ -82,22 +82,19 @@ class BlogController extends Controller
             'title' => 'required|string|max:55',
             'content' => 'required|string|min:30',
             'category' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|max:2048'
+
         ]);
 
-        $updateData = [
-            'title' => $validatedData['title'],
-            'content' => $validatedData['content'],
-            'category' => $validatedData['category'],
-        ];
+       
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imagePath = $image->store('images', 'public');
-            $updateData['image'] = $imagePath;
+            $validatedData['image'] = $imagePath;
         }
 
-        $blog->update($updateData);
+        $blog->update($validatedData);
 
         return redirect()->route('dashboard');
     }

@@ -19,12 +19,26 @@ const form = useForm({
   category: props.blog.category,
   image: props.blog.image,
 });
+
 const imageUrl = computed(() => {
-  return typeof form.image === "string" ? `/storage/${form.image}` : URL.createObjectURL(form.image);
+  return typeof form.image === "string"
+    ? `/storage/${form.image}`
+    : URL.createObjectURL(form.image);
 });
-console.log(form);
+
+
 const submit = () => {
-  form.post(route("blog.update", props.blog.id));
+  const formData = new FormData();
+  formData.append("title", form.title);
+  formData.append("content", form.content);
+  formData.append("category", form.category);
+  
+  if (form.image instanceof File) {
+    formData.append("image", form.image);
+  }
+  form.post(route("blog.update", props.blog.id),{
+    data: formData,
+  });
 };
 </script>
 <template>
@@ -82,7 +96,7 @@ const submit = () => {
           <img
             :src="imageUrl"
             alt="Current blog image"
-            class="w-32 h-32 object-cover mt-2 rounded-lg"
+            class="w-52  object-cover mt-2 rounded-lg"
           />
         </div>
         <div class="mt-4">
@@ -91,7 +105,7 @@ const submit = () => {
             id="image"
             ref="imageInput"
             type="file"
-            @input="form.image = $refs.imageInput.files[0]"
+            @change="form.image = $refs.imageInput.files[0]"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
           />
           <InputError :message="form.errors.image" class="mt-2" />
