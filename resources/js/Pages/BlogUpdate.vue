@@ -2,6 +2,7 @@
 import InputError from "@/Components/InputError.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
+import { computed } from "vue";
 
 const props = defineProps({
   blog: {
@@ -16,9 +17,12 @@ const form = useForm({
   title: props.blog.title,
   content: props.blog.content,
   category: props.blog.category,
-  image: props.blog.image
+  image: props.blog.image,
 });
-
+const imageUrl = computed(() => {
+  return typeof form.image === "string" ? `/storage/${form.image}` : URL.createObjectURL(form.image);
+});
+console.log(form);
 const submit = () => {
   form.post(route("blog.update", props.blog.id));
 };
@@ -53,7 +57,7 @@ const submit = () => {
             id="content"
             rows="4"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-          ></textarea>
+          />
           <InputError :message="form.errors.content" class="mt-2" />
         </div>
         <div class="mt-4">
@@ -73,6 +77,14 @@ const submit = () => {
           </select>
           <InputError :message="form.errors.category" class="mt-2" />
         </div>
+        <div v-if="form.image || props.blog.image" class="mt-4">
+          <p class="text-sm text-gray-500">Current Image:</p>
+          <img
+            :src="imageUrl"
+            alt="Current blog image"
+            class="w-32 h-32 object-cover mt-2 rounded-lg"
+          />
+        </div>
         <div class="mt-4">
           <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
           <input
@@ -84,6 +96,7 @@ const submit = () => {
           />
           <InputError :message="form.errors.image" class="mt-2" />
         </div>
+
         <button
           type="submit"
           class="mt-6 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
