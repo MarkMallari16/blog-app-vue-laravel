@@ -1,14 +1,14 @@
 import { computed } from "vue";
 
 export function useAvatar(avatar, providerId) {
-   
+
     const avatarUrl = computed(() => {
         if (providerId) {
-            return avatar; // If providerId exists, return avatar directly (external URL)
+            return avatar;
         } else if (avatar) {
-            return `/storage/avatars/${avatar}`; // If only avatar exists, use local storage path
+            return `/storage/avatars/${avatar}`;
         } else {
-            return "/storage/avatars/avatar.png"; // Default avatar
+            return "/storage/avatars/avatar.png";
         }
     });
 

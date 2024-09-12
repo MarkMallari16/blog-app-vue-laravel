@@ -1,8 +1,10 @@
 <script setup>
 import NavLink from "@/Components/NavLink.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { useDate } from "@/Composables/date";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
+
 const props = defineProps({
   blogs: {
     type: Array,
@@ -31,7 +33,22 @@ const deleteBlog = (blogId) => {
     <Head title="Your blog" />
     <div class="mt-10 lg:mx-40 mx-5">
       <h1 class="text-4xl mb-4 font-bold">Your Blogs</h1>
-      <div v-for="blog in blogs" :key="blog.id" class="bg-white mb-4 rounded-lg p-2">
+      <div v-if="blogs.length == 0" class="flex justify-center bg-white p-10">
+        <div>
+          <h3 class="text-2xl text-center mb-2">No blogs created</h3>
+          <div class="flex justify-center">
+            <a :href="route('posts')" class="text-white bg-orange-500 px-4 py-2 rounded-lg"
+              >Create Blog</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        v-else
+        v-for="blog in blogs"
+        :key="blog.id"
+        class="bg-white mb-4 rounded-lg p-2"
+      >
         <div class="flex justify-between flex-wrap gap-5 mt-10 p-5">
           <img :src="`/storage/${blog.image}`" alt="" class="w-full lg:w-60 rounded-xl" />
           <div>
