@@ -25,7 +25,7 @@ const { formattedDate } = useDate(props.blog.created_at);
   <div class="w-full">
     <div class="mb-4">
       <img
-        class="rounded-lg w-full object-cover h-60"
+        class="rounded-lg w-full object-cover h-52"
         :src="`/storage/${blog.image}`"
         :alt="blog.title"
       />
@@ -39,7 +39,7 @@ const { formattedDate } = useDate(props.blog.created_at);
 
     <div class="mt-6 justify-between flex items-center">
       <div class="flex items-center gap-3">
-        <img :src="avatarUrl" alt="avatar" class="w-10 rounded-lg" />
+        <img :src="avatarUrl" alt="avatar" class="w-10 h-10 object-cover rounded-full" />
         <div>
           <p class="font-medium">{{ blog.user.name }}</p>
           <p class="text-sm text-slate-400">{{ formattedDate }}</p>

@@ -52,7 +52,7 @@ const deleteBlog = (blogId) => {
         <div class="flex justify-between flex-wrap gap-5 mt-10 p-5">
           <img :src="`/storage/${blog.image}`" alt="" class="w-full lg:w-60 rounded-xl" />
           <div>
-            <p class="text-orange-500 mb-2">{{ blog.category }}</p>
+            <p class="text-orange-500 mb-2 font-medium">{{ blog.category }}</p>
             <h1 class="text-start text-5xl font-bold">{{ blog.title }}</h1>
             <p class="mt-2 text-lg text-gray-800">{{ blog.content.slice(0, 40) }}</p>
             <p class="mt-2 ext-sm text-gray-500">

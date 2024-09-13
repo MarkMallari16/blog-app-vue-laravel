@@ -24,7 +24,7 @@ defineProps({
       <div
         v-for="blog in blogs"
         :key="blog.id"
-        class="mb-4 bg-white px-5 py-6 rounded-xl "
+        class="mb-4 bg-white px-5 py-6 rounded-xl shadow-sm"
       >
         <BlogCard :blog="blog" :authUserId="authUserId" />
       </div>
