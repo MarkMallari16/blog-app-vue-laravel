@@ -26,17 +26,16 @@ const imageUrl = computed(() => {
     : URL.createObjectURL(form.image);
 });
 
-
 const submit = () => {
   const formData = new FormData();
   formData.append("title", form.title);
   formData.append("content", form.content);
   formData.append("category", form.category);
-  
+
   if (form.image instanceof File) {
     formData.append("image", form.image);
   }
-  form.post(route("blog.update", props.blog.id),{
+  form.post(route("blog.update", props.blog.id), {
     data: formData,
   });
 };
@@ -95,7 +94,6 @@ const submit = () => {
           <p class="text-sm text-gray-500">Current Image:</p>
           <img
             :src="imageUrl"
-          
             alt="Current blog image"
             class="w-52 object-cover mt-2 rounded-lg"
           />

@@ -49,7 +49,6 @@ class BlogController extends Controller
             'content' => 'required|string|min:30',
             'category' => 'required',
             'image' => 'required|file|mimes:png,jpg,jpeg',
-
         ]);
 
         $image = $request->file('image');

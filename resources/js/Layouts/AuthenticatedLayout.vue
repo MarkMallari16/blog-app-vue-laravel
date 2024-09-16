@@ -11,10 +11,8 @@ import { useAvatar } from "@/Composables/avatar";
 const showingNavigationDropdown = ref(false);
 const { props } = usePage();
 const avatar = props?.auth?.user?.avatar;
-const providerId = props?.auth?.user?.provider_id;
 
-const { avatarUrl } = useAvatar(avatar,providerId);
-
+const { avatarUrl } = useAvatar(avatar);
 </script>
 
 <template>
@@ -29,7 +27,6 @@ const { avatarUrl } = useAvatar(avatar,providerId);
               <div class="shrink-0 flex items-center">
                 <Link :href="route('dashboard')">
                   <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
-              
                 </Link>
               </div>
 
@@ -44,7 +41,10 @@ const { avatarUrl } = useAvatar(avatar,providerId);
                 <NavLink :href="route('posts')" :active="route().current('posts')">
                   Add Blog
                 </NavLink>
-                <NavLink :href="route('user.blog')" :active="route().current('user.blog')">
+                <NavLink
+                  :href="route('user.blog')"
+                  :active="route().current('user.blog')"
+                >
                   Your Blog
                 </NavLink>
               </div>
@@ -56,7 +56,11 @@ const { avatarUrl } = useAvatar(avatar,providerId);
                 <Dropdown align="right" width="48">
                   <template #trigger>
                     <span class="inline-flex rounded-md">
-                      <img :src="avatarUrl" alt="avatar" class="w-10 h-10 rounded-full object-cover" />
+                      <img
+                        :src="avatarUrl"
+                        alt="avatar"
+                        class="w-10 h-10 rounded-full object-cover"
+                      />
                       <button
                         type="button"
                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
@@ -145,7 +149,10 @@ const { avatarUrl } = useAvatar(avatar,providerId);
             <ResponsiveNavLink :href="route('posts')" :active="route().current('posts')">
               Add Blog
             </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('user.blog')" :active="route().current('user.blog')">
+            <ResponsiveNavLink
+              :href="route('user.blog')"
+              :active="route().current('user.blog')"
+            >
               Your Blog
             </ResponsiveNavLink>
           </div>

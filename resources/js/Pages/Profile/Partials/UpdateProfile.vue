@@ -3,18 +3,26 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
-import { computed } from "vue";
-
-const form = useForm({
-  avatar: null,
+import { computed, ref } from "vue";
+const props = defineProps({
+  defaultAvatar: {
+    type: String,
+  },
 });
+const form = useForm({
+  avatar: props.defaultAvatar,
+});
+
+const avatarRef = ref(null);
 
 const submit = () => {
   form.post(route("profile.avatar.update"));
 };
 const avatarUrl = computed(() => {
   if (typeof form.avatar === "string") {
-    return `/storage/avatars/${form.avatar}`;
+    return form.avatar.startsWith("/storage/avatars/")
+      ? `/storage/avatars/${form.avatar}`
+      : form.avatar;
   } else if (form.avatar instanceof File) {
     return URL.createObjectURL(form.avatar);
   }
@@ -22,13 +30,16 @@ const avatarUrl = computed(() => {
 
 const removeAvatarUrl = () => {
   form.avatar = "";
-}
+  if (avatarRef.value) {
+    avatarRef.value.value = "";
+  }
+};
 </script>
 
 <template>
-    
   <InputLabel for="avatar" value="Avatar" />
-  <img v-if="avatarUrl" :src="avatarUrl" alt="avatar"  class="my-4 w-52 h-52 rounded-full object-cover"/>
+  <img :src="avatarUrl" alt="avatar" class="my-4 w-52 h-52 rounded-full object-cover" />
+
   <form @submit.prevent="submit">
     <div>
       <div class="mt-2 flex flex-col">

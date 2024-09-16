@@ -15,9 +15,7 @@ const props = defineProps({
 });
 
 const avatar = props?.blog?.user?.avatar;
-const providerId = props?.blog?.user?.provider_id;
-
-const { avatarUrl } = useAvatar(avatar, providerId);
+const { avatarUrl } = useAvatar(avatar);
 
 const { formattedDate } = useDate(props.blog.created_at);
 </script>
@@ -30,7 +28,7 @@ const { formattedDate } = useDate(props.blog.created_at);
         :alt="blog.title"
       />
     </div>
-    <p class=" text-orange-500">{{ blog.category }}</p>
+    <p class="text-orange-500">{{ blog.category }}</p>
     <h1 class="mt-1 text-2xl font-bold">{{ blog.title }}</h1>
 
     <p class="text-slate-700">

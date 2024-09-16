@@ -19,9 +19,13 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $user = Auth::user();
+        $avatar = $user->avatar;
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'avatar' => $avatar
         ]);
     }
 
@@ -76,7 +80,7 @@ class ProfileController extends Controller
 
         // Update the user's avatar path in the database
         $request->user()->update([
-            'avatar' => basename($avatarPath), 
+            'avatar' => basename($avatarPath),
         ]);
 
         return Redirect::back();

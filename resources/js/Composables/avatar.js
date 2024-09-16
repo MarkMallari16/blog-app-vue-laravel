@@ -1,12 +1,10 @@
 import { computed } from "vue";
 
-export function useAvatar(avatar, providerId) {
+export function useAvatar(avatar) {
 
     const avatarUrl = computed(() => {
-        if (providerId) {
-            return avatar;
-        } else if (avatar) {
-            return `/storage/avatars/${avatar}`;
+        if (avatar) {
+            return avatar.startsWith("/storage/avatars/") ? `/storage/avatars/${avatar}` : avatar;
         } else {
             return "/storage/avatars/avatar.png";
         }
