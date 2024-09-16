@@ -21,7 +21,7 @@ class ProviderController extends Controller
             'provider_id' => $githubUser->id,
         ], [
             'avatar' => $githubUser->avatar,
-            'name' => $githubUser->name,
+            'name' => $githubUser->name, 
             'email' => $githubUser->email,
             'provider_token' => $githubUser->token,
             'provider_refresh_token' => $githubUser->refreshToken,

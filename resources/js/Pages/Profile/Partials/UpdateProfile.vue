@@ -19,10 +19,14 @@ const avatarUrl = computed(() => {
     return URL.createObjectURL(form.avatar);
   }
 });
+
+const removeAvatarUrl = () => {
+  form.avatar = "";
+}
 </script>
 
 <template>
-  
+    
   <InputLabel for="avatar" value="Avatar" />
   <img v-if="avatarUrl" :src="avatarUrl" alt="avatar"  class="my-4 w-52 h-52 rounded-full object-cover"/>
   <form @submit.prevent="submit">
@@ -30,6 +34,10 @@ const avatarUrl = computed(() => {
       <div class="mt-2 flex flex-col">
         <input ref="avatar" type="file" @input="form.avatar = $refs.avatar.files[0]" />
         <InputError :message="form.errors.avatar" class="mt-2" />
+
+        <div v-if="form.avatar" class="mt-10">
+          <button @click="removeAvatarUrl" type="button">remove avatar</button>
+        </div>
       </div>
 
       <div class="flex items-center gap-4 mt-4">

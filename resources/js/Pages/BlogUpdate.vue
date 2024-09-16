@@ -95,8 +95,9 @@ const submit = () => {
           <p class="text-sm text-gray-500">Current Image:</p>
           <img
             :src="imageUrl"
+          
             alt="Current blog image"
-            class="w-52  object-cover mt-2 rounded-lg"
+            class="w-52 object-cover mt-2 rounded-lg"
           />
         </div>
         <div class="mt-4">
