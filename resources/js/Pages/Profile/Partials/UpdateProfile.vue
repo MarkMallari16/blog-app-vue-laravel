@@ -14,7 +14,9 @@ const form = useForm({
 });
 
 const submit = () => {
+  form.loading = true;
   form.post(route("profile.avatar.update"));
+  form.loading = false;
 };
 
 const avatarUrl = computed(() => {
@@ -46,7 +48,10 @@ const avatarUrl = computed(() => {
       </div>
 
       <div class="flex items-center gap-4 mt-4">
-        <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+        <PrimaryButton :disabled="form.processing || form.loading">
+          <span v-if="form.loading">Loading....</span>
+          <span v-else>Save</span>
+        </PrimaryButton>
 
         <Transition
           enter-active-class="transition ease-in-out"

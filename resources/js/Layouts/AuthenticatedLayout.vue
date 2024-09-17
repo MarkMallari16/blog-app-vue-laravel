@@ -13,6 +13,7 @@ const { props } = usePage();
 const avatar = props?.auth?.user?.avatar;
 
 const { avatarUrl } = useAvatar(avatar);
+
 </script>
 
 <template>
