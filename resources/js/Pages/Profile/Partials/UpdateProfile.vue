@@ -13,27 +13,21 @@ const form = useForm({
   avatar: props.defaultAvatar,
 });
 
-const avatarRef = ref(null);
-
 const submit = () => {
   form.post(route("profile.avatar.update"));
 };
+
 const avatarUrl = computed(() => {
   if (typeof form.avatar === "string") {
-    return form.avatar.startsWith("/storage/avatars/")
-      ? `/storage/avatars/${form.avatar}`
-      : form.avatar;
+    return form.avatar.startsWith("https://avatars.githubusercontent.com/u/")
+      ? form.avatar
+      : `/storage/avatars/${form.avatar}`;
   } else if (form.avatar instanceof File) {
     return URL.createObjectURL(form.avatar);
+  } else {
+    return "/storage/avatars/avatar.png";
   }
 });
-
-const removeAvatarUrl = () => {
-  form.avatar = "";
-  if (avatarRef.value) {
-    avatarRef.value.value = "";
-  }
-};
 </script>
 
 <template>

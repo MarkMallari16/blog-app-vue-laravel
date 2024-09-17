@@ -13,20 +13,24 @@ defineProps({
     required: true,
   },
 });
-
 </script>
 
 <template>
   <Head title="Dashboard" />
 
   <AuthenticatedLayout>
-    <div class=" mt-10 mx-5 lg:mx-48 gap-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3" v-if="blogs && blogs.length > 0">
-      <div
-        v-for="blog in blogs"
-        :key="blog.id"
-        class="mb-4 bg-white px-5 py-6 rounded-xl shadow-sm"
-      >
-        <BlogCard :blog="blog" :authUserId="authUserId" />
+    <div class="" v-if="blogs && blogs.length > 0">
+      <div class="mt-10 mx-5 lg:mx-48">
+        <h1 class="text-4xl font-medium mb-4">Latest Blogs</h1>
+        <div class="gap-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+          <div
+            v-for="blog in blogs"
+            :key="blog.id"
+            class="mb-4 bg-white px-5 py-6 rounded-xl shadow-sm"
+          >
+            <BlogCard :blog="blog" :authUserId="authUserId" />
+          </div>
+        </div>
       </div>
     </div>
     <div v-else class="mt-10 text-center bg-white mx-48 p-5 rounded-lg">
