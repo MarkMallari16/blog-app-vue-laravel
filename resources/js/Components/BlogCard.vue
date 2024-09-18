@@ -15,10 +15,10 @@ const { avatarUrl } = useAvatar(avatar);
 
 </script>
 <template>
-  <div class="w-full">
+  <div class="w-full ring-1 ring-inset rounded-lg p-5 ring-gray-300">
     <div class="mb-4">
       <img
-        class="rounded-lg w-full object-cover h-52"
+        class="rounded-lg w-full object-cover h-52  hover:scale-105 transition-all ease-out overflow-hidden"
         :src="`/storage/${blog.image}`"
         :alt="blog.title"
       />
