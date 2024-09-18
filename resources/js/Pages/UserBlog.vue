@@ -1,9 +1,9 @@
 <script setup>
-import NavLink from "@/Components/NavLink.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+
 import { useDate } from "@/Composables/date";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 const props = defineProps({
   blogs: {
@@ -22,6 +22,8 @@ const form = useForm({
   image: null,
 });
 
+const isShowModal = ref(false);
+
 const deleteBlog = (blogId) => {
   if (confirm("Are you sure you want to delete this blog?")) {
     form.delete(route("blog.delete", blogId));
@@ -32,24 +34,21 @@ const deleteBlog = (blogId) => {
   <AuthenticatedLayout>
     <Head title="Your blog" />
     <div class="mt-10 lg:mx-40 mx-5">
-      <h1 class="text-4xl mb-4 font-bold">Your Blogs</h1>
-      <div v-if="blogs.length == 0" class="flex justify-center bg-white p-10">
+      <h1 class="text-4xl mb-6 font-bold">Your Blogs</h1>
+      <div v-if="blogs.length == 0" class="flex justify-center bg-white">
         <div>
           <h3 class="text-2xl text-center mb-2">No blogs created</h3>
           <div class="flex justify-center">
-            <a :href="route('posts')" class="text-white bg-orange-500 px-4 py-2 rounded-lg"
+            <a
+              :href="route('posts')"
+              class="text-white bg-orange-500 px-4 py-2 rounded-lg"
               >Create Blog</a
             >
           </div>
         </div>
       </div>
-      <div
-        v-else
-        v-for="blog in blogs"
-        :key="blog.id"
-        class="bg-white mb-4 rounded-lg p-2"
-      >
-        <div class="flex justify-between flex-wrap gap-5 mt-10 p-5">
+      <div v-else v-for="blog in blogs" :key="blog.id" class="bg-white mb-4 rounded-lg">
+        <div class="flex justify-between flex-wrap gap-8 mt-10 py-8 px-6">
           <img :src="`/storage/${blog.image}`" alt="" class="w-full lg:w-60 rounded-xl" />
           <div>
             <p class="text-orange-500 mb-2 font-medium">{{ blog.category }}</p>
@@ -60,10 +59,7 @@ const deleteBlog = (blogId) => {
             </p>
           </div>
           <div class="flex items-start gap-2 ms-auto">
-            <a
-              :href="route('blog.update.view', blog.id)"
-              class="bg-blue-500 px-4 py-3 rounded-lg"
-            >
+            <a :href="route('blog.update.view', blog.id)" class="px-4 py-3 rounded-lg text-blue-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -75,7 +71,7 @@ const deleteBlog = (blogId) => {
                 />
               </svg>
             </a>
-            <button @click="deleteBlog(blog.id)" class="bg-red-500 px-4 py-3 rounded-lg">
+            <button @click="deleteBlog(blog.id)" class="px-4 py-3 rounded-lg text-red-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
