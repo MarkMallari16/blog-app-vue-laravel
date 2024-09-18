@@ -7,17 +7,12 @@ const props = defineProps({
   blog: {
     type: Object,
     required: true,
-  },
-  authUserId: {
-    type: Number,
-    required: true,
-  },
+  }
 });
 
 const avatar = props?.blog?.user?.avatar;
 const { avatarUrl } = useAvatar(avatar);
 
-const { formattedDate } = useDate(props.blog.created_at);
 </script>
 <template>
   <div class="w-full">
@@ -40,7 +35,7 @@ const { formattedDate } = useDate(props.blog.created_at);
         <img :src="avatarUrl" alt="avatar" class="w-10 h-10 object-cover rounded-full" />
         <div>
           <p class="font-medium">{{ blog.user.name }}</p>
-          <p class="text-sm text-slate-400">{{ formattedDate }}</p>
+          <p class="text-sm text-slate-400">{{ useDate(blog.created_at).formattedDate }}</p>
         </div>
       </div>
       <div>

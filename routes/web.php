@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ProviderController;
+use App\Models\Blog;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Socialite\Facades\Socialite;
@@ -20,11 +22,13 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
+    $latestBlogs = Blog::latest()->take(5)->with('user')->get();
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'latestBlogs' => $latestBlogs,
     ]);
 });
 
@@ -35,8 +39,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/blogs/add', [BlogController::class, 'blog'])->name('posts');
     Route::post('/blogs', [BlogController::class, 'store'])->name('blog.store');
     Route::get('/blogs/{blog}', [BlogController::class, 'viewBlog'])->name('blogs.show');
-    Route::get('/blogs/{blog}/edit',[BlogController::class,'viewUpdateBlog'])->name('blog.update.view');
-    Route::post('/blogs/{blog}/edit',[BlogController::class,'update'])->name('blog.update');
+    Route::get('/blogs/{blog}/edit', [BlogController::class, 'viewUpdateBlog'])->name('blog.update.view');
+    Route::post('/blogs/{blog}/edit', [BlogController::class, 'update'])->name('blog.update');
     Route::delete('/blogs/{blog}', [BlogController::class, 'delete'])->name('blog.delete');
 });
 Route::middleware('auth')->group(function () {
