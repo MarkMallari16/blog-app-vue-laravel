@@ -30,6 +30,19 @@ const avatarUrl = computed(() => {
     return "/storage/avatars/avatar.png";
   }
 });
+
+const removeAvatarUrl = () => {
+  form.loading = true;
+
+  form.delete(route("profile.avatar.destroy"), {
+    onSuccess: () => {
+      form.avatar = props.defaultAvatar;
+    },
+    onFinish: () => {
+      form.loading = false;
+    },
+  });
+};
 </script>
 
 <template>
@@ -42,9 +55,7 @@ const avatarUrl = computed(() => {
         <input ref="avatar" type="file" @input="form.avatar = $refs.avatar.files[0]" />
         <InputError :message="form.errors.avatar" class="mt-2" />
 
-        <div v-if="form.avatar" class="mt-10">
-          <button @click="removeAvatarUrl" type="button">remove avatar</button>
-        </div>
+       
       </div>
 
       <div class="flex items-center gap-4 mt-4">
