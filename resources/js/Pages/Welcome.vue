@@ -25,7 +25,7 @@ defineProps({
     required: true,
   },
 });
-const isMenuOpen = ref(false);
+const isMenuOpen = ref(true);
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -42,7 +42,7 @@ const toggleMenu = () => {
         <h1 class="text-2xl font-black uppercase">
           Tambayan<span class="text-orange-500 font-extrabold">Thoughts</span>
         </h1>
-        <div @click="toggleMenu" class="relative lg:hidden cursor-pointer">
+        <div @click="toggleMenu" class="relative lg:hidden  cursor-pointer" >
           <div v-if="isMenuOpen">
             <button>
               <svg
