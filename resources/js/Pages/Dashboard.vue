@@ -19,10 +19,10 @@ defineProps({
   <Head title="Dashboard" />
 
   <AuthenticatedLayout>
-    <div class="" v-if="blogs && blogs.length > 0">
+    <div  v-if="blogs && blogs.length > 0">
       <div class="mt-10 mx-5 lg:mx-32">
         <h1 class="text-4xl font-medium mb-4">Latest Blogs</h1>
-        <div class="flex flex-wrap lg:flex-nowrap gap-5 w-full bg-whit">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 w-full bg-white">
           <div
             v-for="blog in blogs"
             :key="blog.id"
