@@ -4,11 +4,13 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
+
 const props = defineProps({
   defaultAvatar: {
     type: String,
   },
 });
+
 const form = useForm({
   avatar: props.defaultAvatar,
 });
@@ -52,10 +54,9 @@ const removeAvatarUrl = () => {
   <form @submit.prevent="submit">
     <div>
       <div class="mt-2 flex flex-col">
-        <input ref="avatar" type="file" @input="form.avatar = $refs.avatar.files[0]" />
+        
+        <input ref="avatar" type="file" @input="form.avatar = $refs.avatar.files[0]" class="border-0"/>
         <InputError :message="form.errors.avatar" class="mt-2" />
-
-       
       </div>
 
       <div class="flex items-center gap-4 mt-4">

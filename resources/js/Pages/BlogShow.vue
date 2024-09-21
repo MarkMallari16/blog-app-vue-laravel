@@ -24,7 +24,7 @@ const { avatarUrl } = useAvatar(avatar, providerId);
           <p class="text-slate-500">{{ blog.category }}</p>
         </div>
         <div class="mt-6 flex items-center gap-3">
-          <img :src="avatarUrl" :alt="blog.title" class="w-12 rounded-lg" />
+          <img :src="avatarUrl" :alt="blog.title" class="w-12 h-12 rounded-full object-cover" />
           <p>{{ blog.user.name }}</p>
         </div>
         <div class="mt-2 mb-4 flex justify-between items-center">

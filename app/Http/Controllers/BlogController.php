@@ -17,12 +17,9 @@ class BlogController extends Controller
 
 
         $blogs = Blog::with('user')
-            ->when($search, function ($query, $search) {
-                return $query->where('title', 'like', '%{search}%')
-                    ->orWhere('content', 'like', '%{search}%');
-            })
             ->orderBy('created_at')
             ->get();
+
         return Inertia::render('Dashboard', [
             'blogs' => $blogs,
             'authUserId' => Auth::id(),

@@ -37,7 +37,7 @@ const { avatarUrl } = useAvatar(avatar);
             class="w-10 h-10 object-cover rounded-full"
           />
           <div>
-            <p class="font-medium">{{ blog.user.name }}</p>
+            <p class="font-medium break-all">{{ blog.user.name }}</p>
             <p class="text-sm text-slate-400">
               {{ useDate(blog.created_at).formattedDate }}
             </p>
@@ -45,7 +45,7 @@ const { avatarUrl } = useAvatar(avatar);
         </div>
         <div>
           <NavLink :href="route('blogs.show', blog.id)" class="flex gap-2">
-            Read Full Article
+            Read Article
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
