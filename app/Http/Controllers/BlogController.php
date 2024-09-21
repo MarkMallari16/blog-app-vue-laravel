@@ -114,6 +114,6 @@ class BlogController extends Controller
         } else {
             abort(403, 'You are not authorized to delete this blog.');
         }
-        return redirect()->route('dashboard');
+        return redirect()->back();
     }
 }

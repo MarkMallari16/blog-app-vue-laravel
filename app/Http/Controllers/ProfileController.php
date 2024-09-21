@@ -96,6 +96,7 @@ class ProfileController extends Controller
                 'avatar' => 'avatar.png'
             ]);
         }
+        
         return Redirect::back();
     }
 }
