@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use GuzzleHttp\Psr7\Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -10,13 +11,22 @@ use Inertia\Inertia;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::with('user')->orderByDesc('created_at')->get();
+        $search = $request->input('search');
 
+
+        $blogs = Blog::with('user')
+            ->when($search, function ($query, $search) {
+                return $query->where('title', 'like', '%{search}%')
+                    ->orWhere('content', 'like', '%{search}%');
+            })
+            ->orderBy('created_at')
+            ->get();
         return Inertia::render('Dashboard', [
             'blogs' => $blogs,
-            'authUserId' => Auth::id()
+            'authUserId' => Auth::id(),
+            'search' => $search
         ]);
     }
 
@@ -85,7 +95,7 @@ class BlogController extends Controller
 
         ]);
 
-       
+
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
