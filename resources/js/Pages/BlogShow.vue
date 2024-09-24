@@ -21,7 +21,7 @@ const { avatarUrl } = useAvatar(avatar, providerId);
     <div class="mt-10 mx-5 lg:mx-48 bg-white px-8 py-2 rounded-xl">
       <div>
         <div class="mt-6">
-          <p class="text-slate-500">{{ blog.category }}</p>
+          <p class="text-orange-500">{{ blog.category }}</p>
         </div>
         <div class="mt-6 flex items-center gap-3">
           <img :src="avatarUrl" :alt="blog.title" class="w-12 h-12 rounded-full object-cover" />
